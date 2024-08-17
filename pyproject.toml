@@ -1,0 +1,66 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "drabot"
+dynamic = ["version"]
+description = 'A Python Telegram Bot to create WireGuard VPN'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Miguel Bernal Marin", email = "miguel.bernal.marin@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+]
+
+[project.urls]
+Documentation = "https://github.com/Miguel Bernal Marin/drabot#readme"
+Issues = "https://github.com/Miguel Bernal Marin/drabot/issues"
+Source = "https://github.com/Miguel Bernal Marin/drabot"
+
+[project.scripts]
+drabot = "drabot.cli:drabot"
+
+[tool.hatch.version]
+path = "src/drabot/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/drabot tests}"
+
+[tool.coverage.run]
+source_pkgs = ["drabot", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/drabot/__about__.py",
+]
+
+[tool.coverage.paths]
+drabot = ["src/drabot", "*/drabot/src/drabot"]
+tests = ["tests", "*/drabot/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
